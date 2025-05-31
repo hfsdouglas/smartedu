@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -25,7 +26,7 @@ class UserController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (auth()->attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $user = auth()->user();
             $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -59,5 +60,12 @@ class UserController extends Controller
             'token' => $token,
             'user' => $user
         ]);
+    }
+
+    public function logout(Request $request) {
+        $user = auth()->user();
+        $user->tokens()->delete();
+
+        return response()->json(['message' => "Até logo, $user->name!"]);
     }
 }
