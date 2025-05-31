@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_POSTGRES_PASSWORD=docker
+      - POSTGRESQL_DATABASE=smartedu
+      - POSTGRESQL_TIMEZONE=America/Sao_Paulo
+    volumes:
+      - smartedu_pg_data:/bitnami/postgresql
+
+volumes:
+  smartedu_pg_data:
