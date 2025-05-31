@@ -8,7 +8,8 @@ Route::prefix('/user')->group(function () {
     Route::get('/{id}', [UserController::class, 'show'])->middleware('auth:sanctum');
 });
 
-Route::prefix('auth')->group(function () {
+Route::prefix('/auth')->group(function () {
     Route::post('/login', [UserController::class, 'login']);
     Route::post('/signup', [UserController::class, 'signup']);
+    Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
 });
