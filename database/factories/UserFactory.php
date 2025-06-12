@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\School;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Relationship;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Number;
@@ -29,7 +31,8 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'cpf' => fake()->numerify('###########'),
-            'celular' => fake()->numerify('###########'),
+            'phone' => fake()->numerify('###########'),
+            'school_id' => School::factory(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
