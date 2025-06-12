@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('cpf')->unique();
-            $table->string('celular')->unique();
-            $table->enum('ativo', ['S', 'N'])->default('S');
+            $table->string('phone')->unique();
+            $table->enum('status', ['Y', 'N'])->default('Y');
+            $table->foreignUuid('school_id')->references('id')->on('schools');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
