@@ -16,15 +16,15 @@ return new class extends Migration
             $table->string('razao_social');
             $table->string('fantasia');
             $table->string('cnpj')->unique();
-            $table->enum('ativo', ['S', 'N']);
-            $table->string('telefone')->unique();
-            $table->string('endereco');
-            $table->string('numero');
-            $table->string('complemento');
-            $table->string('bairro');
-            $table->string('cep');
-            $table->string('cidade');
-            $table->string('uf');
+            $table->enum('status', ['Y', 'N'])->default('Y');
+            $table->string('phone')->unique();
+            $table->string('address');
+            $table->string('number');
+            $table->string('comp')->nullable();
+            $table->string('neighbourhood');
+            $table->string('zip');
+            $table->string('city');
+            $table->string('state');
             $table->timestamps();
         });
     }
