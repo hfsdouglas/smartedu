@@ -1,10 +1,13 @@
-import { router } from "./routes";
-
 import { RouterProvider } from "react-router/dom";
 
+import { PanelControllerProvider } from "@/contexts/PanelController";
+
+import { router } from "./routes";
+
 export default function App() {
-  
   return (
-    <RouterProvider router={router}/>
-  )
+    <PanelControllerProvider>
+      <RouterProvider router={router} />
+    </PanelControllerProvider>
+  );
 }
