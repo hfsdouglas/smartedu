@@ -25,7 +25,7 @@ export function PanelControllerProvider({
 
   // Se estiver colapsado, o botão é apenas um ícone, caso contrário, é um botão com texto
   const selected = !controller
-    ? "data-[active=true]:text-blue-600 data-[active=true]:hover:bg-blue-50 data-[active=true]:border data-[active=true]:border-blue-600 "
+    ? "data-[active=true]:text-blue-600 data-[active=true]:hover:bg-blue-100 data-[active=true]:bg-blue-50"
     : "data-[active=true]:text-blue-600 data-[active=true]:bg-blue-50 data-[active=true]:hover:bg-blue-100";
 
   const button = !controller
