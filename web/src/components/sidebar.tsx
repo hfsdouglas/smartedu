@@ -7,9 +7,21 @@ import {
 } from "@phosphor-icons/react";
 import { useContext } from "react";
 import { PanelControllerContext } from "@/contexts/PanelController";
+import { Link, useLocation } from "react-router";
+
+const links = [
+  { to: "/", label: "Dashboard" },
+  { to: "/aulas", label: "Aulas" },
+  { to: "/nova-aula", label: "Nova Aula" },
+  { to: "/perfil", label: "Perfil" },
+];
 
 export function Sidebar() {
-  const { sidebar, controller } = useContext(PanelControllerContext);
+  const { sidebar, controller, button, icon } = useContext(
+    PanelControllerContext
+  );
+
+  const location = useLocation();
 
   return (
     <div
@@ -17,9 +29,9 @@ export function Sidebar() {
     >
       <div className="flex flex-col h-full">
         {/* Logo e Toggle */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 h-[75px]">
+        <div className={icon}>
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="size-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">SE</span>
             </div>
             {controller && (
@@ -53,55 +65,57 @@ export function Sidebar() {
         {/* Menu de Navegação */}
         <nav className="flex-1 p-4">
           <ul className="space-y-2">
-            <li>
-              <a
-                href="dashboard.html"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors duration-200 bg-blue-50 text-blue-600 border-r-2 border-blue-600"
-              >
-                <HouseLineIcon size={20} />
-                {controller && <span className="font-medium">Dashboard</span>}
-              </a>
-            </li>
-            <li>
-              <a
-                href="minhas-aulas.html"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors duration-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-              >
-                <MonitorPlayIcon size={20} />
-                {controller && (
-                  <span className="font-medium">Minhas Aulas</span>
-                )}
-              </a>
-            </li>
-            <li>
-              <a
-                href="adicionar-aula.html"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors duration-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-              >
-                <PlusCircleIcon size={20} />
-                {controller && (
-                  <span className="font-medium">Adicionar Aula</span>
-                )}
-              </a>
-            </li>
-            <li>
-              <a
-                href="perfil.html"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors duration-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-              >
-                <UserIcon size={20} />
-                {controller && <span className="font-medium">Perfil</span>}
-              </a>
-            </li>
+            {links.map(({ to, label }) => {
+              const isActive = location.pathname === to;
+
+              return (
+                <li key={label}>
+                  <Link to={to} className={button} data-active={isActive}>
+                    {to === "/" && (
+                      <>
+                        <HouseLineIcon size={20} />
+                        {controller && (
+                          <span className="font-medium">Dashboard</span>
+                        )}
+                      </>
+                    )}
+
+                    {to === "/aulas" && (
+                      <>
+                        <MonitorPlayIcon size={20} />
+                        {controller && (
+                          <span className="font-medium">Minhas Aulas</span>
+                        )}
+                      </>
+                    )}
+
+                    {to === "/nova-aula" && (
+                      <>
+                        <PlusCircleIcon size={20} />
+                        {controller && (
+                          <span className="font-medium">Adicionar Aula</span>
+                        )}
+                      </>
+                    )}
+
+                    {to === "/perfil" && (
+                      <>
+                        <UserIcon size={20} />
+                        {controller && (
+                          <span className="font-medium">Perfil</span>
+                        )}
+                      </>
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
         {/* Configurações */}
         <div className="p-4 border-t border-gray-200">
-          <button
-            type="button"
-            className="w-full justify-start text-blue-600 hover:bg-blue-50 cursor-pointer flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors duration-200"
-          >
+          <button type="button" className={`${button} w-full`}>
             <GearIcon size={20} />
             {controller && <span className="font-medium">Configurações</span>}
           </button>
